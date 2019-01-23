@@ -18,7 +18,7 @@ $pdf = JMpdf::getPdf('Hello world');
 ## Методы JMpdf
 - static::getPDF($html = '', $config = [])
 
-## Параметры для обертки JMpdf::getPDF($html, $config);
+## JMpdf::getPDF($html, $config);
 Параметры
 1) html - html для записи в pdf
 2) $config - параметры для mpdf, список параметров:
