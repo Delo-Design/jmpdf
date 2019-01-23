@@ -15,5 +15,7 @@
         <folder>src</folder>
         <folder>tmp</folder>
         <folder>ttfonts</folder>
+        <filename>jmpdf.php</filename>
+        <filename>pdf.php</filename>
     </files>
 </extension>
