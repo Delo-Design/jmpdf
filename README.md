@@ -1,11 +1,11 @@
 # jmpdf
 Mpdf for Joomla!
 
-##Mpdf
+## Mpdf
 - Ссылка на github: https://github.com/mpdf/mpdf
 - Ссылка на документацию: https://mpdf.github.io
 
-##JMpdf
+## JMpdf
 Для удобства написана обертка для mpdf.
 
 Загрузка и вызов:
@@ -14,10 +14,10 @@ JLoader::register('JMpdf', JPATH_LIBRARIES . '/mpdf/jmpdf.php');
 $pdf = JMpdf::getPdf('Hello world');
 
 
-##Методы JMpdf
+## Методы JMpdf
 - static::getPDF($html = '', $config = [])
 
-##Параметры для обертки JMpdf::getPDF($html, $config);
+## Параметры для обертки JMpdf::getPDF($html, $config);
 Параметры
 1) html - html для записи в pdf
 2) $config - параметры для mpdf, список параметров:
@@ -46,5 +46,5 @@ $pdf = JMpdf::getPdf('Hello world');
 - stream
      
      
-##Подключить без обертки
+## Подключить без обертки
 JLoader::registerNamespace('Mpdf', JPATH_LIBRARIES . '/mpdf/src');
