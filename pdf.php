@@ -1,64 +1,61 @@
 <?php
 
+defined('_JEXEC') or die;
 
+use Joomla\Registry\Registry;
+
+/**
+ * @package     ${NAMESPACE}
+ *
+ * @since version
+ */
 class PDF
 {
 
-    protected $config = [];
+    protected $config;
 
 
-    public function __construct($html = '', $config = [])
+    public function __construct($html = '', $uconfig = [])
     {
-        $this->config = $config;
+
+        $config = new Registry();
+        $config->loadArray(include __DIR__ . '/config.php');
+
+        foreach ($uconfig as $key => $value) {
+            $config->set($key, $value);
+        }
+
         $mpdf_config = [
-            'mode'                 =>   $this->getConfig('mode'),              // mode - default ''
-            'format'               =>   $this->getConfig('format'),            // format - A4, for example, default ''
-            'margin_left'          =>   $this->getConfig('margin_left'),       // margin_left
-            'margin_right'         =>   $this->getConfig('margin_right'),      // margin right
-            'margin_top'           =>   $this->getConfig('margin_top'),        // margin top
-            'margin_bottom'        =>   $this->getConfig('margin_bottom'),     // margin bottom
-            'margin_header'        =>   $this->getConfig('margin_header'),     // margin header
-            'margin_footer'        =>   $this->getConfig('margin_footer'),     // margin footer
-            'tempDir'              =>   $this->getConfig('tempDir')            // margin footer
+            'mode'                 =>   $config->get('mode', ''),              // mode - default ''
+            'format'               =>   $config->get('format', ''),            // format - A4, for example, default ''
+            'margin_left'          =>   $config->get('margin_left', ''),       // margin_left
+            'margin_right'         =>   $config->get('margin_right', ''),      // margin right
+            'margin_top'           =>   $config->get('margin_top', ''),        // margin top
+            'margin_bottom'        =>   $config->get('margin_bottom', ''),     // margin bottom
+            'margin_header'        =>   $config->get('margin_header', ''),     // margin header
+            'margin_footer'        =>   $config->get('margin_footer', ''),     // margin footer
+            'tempDir'              =>   $config->get('tempDir', '')            // margin footer
         ];
-        // Handle custom fonts
-        $mpdf_config = $this->addCustomFontsConfig($mpdf_config);
+
+        $this->config = $config;
         $this->mpdf = new Mpdf\Mpdf($mpdf_config);
         // If you want to change your document title,
         // please use the <title> tag.
         $this->mpdf->SetTitle('Document');
-        $this->mpdf->SetAuthor        ( $this->getConfig('author') );
-        $this->mpdf->SetCreator       ( $this->getConfig('creator') );
-        $this->mpdf->SetSubject       ( $this->getConfig('subject') );
-        $this->mpdf->SetKeywords      ( $this->getConfig('keywords') );
-        $this->mpdf->SetDisplayMode   ( $this->getConfig('display_mode') );
-        if (isset($this->config['instanceConfigurator']) && is_callable(($this->config['instanceConfigurator']))) {
-            $this->config['instanceConfigurator']($this->mpdf);
+        $this->mpdf->SetAuthor( $config->get('author', '') );
+        $this->mpdf->SetCreator( $config->get('creator', '') );
+        $this->mpdf->SetSubject( $config->get('subject', '') );
+        $this->mpdf->SetKeywords( $config->get('keywords', '') );
+        $this->mpdf->SetDisplayMode( $config->get('display_mode', '') );
+        if (!empty($config->get('instanceConfigurator', '')) && is_callable(($this->config->get('instanceConfigurator')))) {
+            $this->config->get('instanceConfigurator')($this->mpdf);
         }
         $this->mpdf->WriteHTML($html);
     }
 
     protected function getConfig($key)
     {
-        if (isset($this->config[$key])) {
-            return $this->config[$key];
-        } else {
-            return Config::get('pdf.' . $key);
-        }
-    }
-
-    protected function addCustomFontsConfig($mpdf_config)
-    {
-        if (!Config::has('pdf.font_path') || !Config::has('pdf.font_data')) {
-            return $mpdf_config;
-        }
-        // Get default font configuration
-        $fontDirs = (new Mpdf\Config\ConfigVariables())->getDefaults()['fontDir'];
-        $fontData = (new Mpdf\Config\FontVariables())->getDefaults()['fontdata'];
-        // Merge default with custom configuration
-        $mpdf_config['fontDir'] = array_merge($fontDirs, [Config::get('pdf.font_path')]);
-        $mpdf_config['fontdata'] = array_merge($fontData, Config::get('pdf.font_data'));
-        return $mpdf_config;
+        return $this->config->get($key, '');
     }
 
     public function setProtection($permisson, $userPassword = '', $ownerPassword = '')
