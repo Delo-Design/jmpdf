@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5.0" type="library" method="upgrade">
+    <name>Mpdf</name>
+    <libraryname>mpdf</libraryname>
+    <author>https://mpdf.github.io/about-mpdf/credits.html</author>
+    <creationDate>2010</creationDate>
+    <copyright>https://mpdf.github.io/copyright.html</copyright>
+    <license>GNU General Public License</license>
+    <authorEmail></authorEmail>
+    <authorUrl>https://mpdf.github.io</authorUrl>
+    <version>7.1.0</version>
+    <description><![CDATA[Class for generating PDF files on-the-fly without requiring external extensions.]]></description>
+    <files>
+        <folder>data</folder>
+        <folder>src</folder>
+        <folder>tmp</folder>
+        <folder>ttfonts</folder>
+    </files>
+</extension>
