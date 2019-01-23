@@ -9,6 +9,7 @@ Mpdf for Joomla!
 Для удобства написана обертка для mpdf.
 
 Загрузка и вызов:
+
 JLoader::register('JMpdf', JPATH_LIBRARIES . '/mpdf/jmpdf.php');
 
 $pdf = JMpdf::getPdf('Hello world');
