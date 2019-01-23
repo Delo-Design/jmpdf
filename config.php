@@ -8,7 +8,7 @@ return [
     'author'                => '',
     'subject'               => '',
     'keywords'              => '',
-    'creator'               => 'Laravel Pdf',
+    'creator'               => 'Joomla Pdf',
     'display_mode'          => 'fullpage',
     'tempDir'               => base_path('../temp/')
 ];
