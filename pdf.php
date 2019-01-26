@@ -3,6 +3,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\Registry\Registry;
+use Mpdf\Mpdf;
 
 /**
  * @package     ${NAMESPACE}
@@ -18,6 +19,7 @@ class PDF
     public function __construct($html = '', $uconfig = [])
     {
 
+        JLoader::registerNamespace('Mpdf', JPATH_LIBRARIES . '/mpdf');
         $config = new Registry();
         $config->loadArray(include __DIR__ . '/config.php');
 
@@ -38,7 +40,7 @@ class PDF
         ];
 
         $this->config = $config;
-        $this->mpdf = new Mpdf\Mpdf($mpdf_config);
+        $this->mpdf = new Mpdf($mpdf_config);
         // If you want to change your document title,
         // please use the <title> tag.
         $this->mpdf->SetTitle('Document');

@@ -15,8 +15,8 @@ class JMpdf
      */
     public static function getPDF($html = '', $config = [])
     {
-        JLoader::registerNamespace('Mpdf', JPATH_LIBRARIES . '/mpdf/src');
-        return (new PDF($html = '', $config = []));
+        JLoader::register('PDF', JPATH_LIBRARIES . '/mpdf/pdf.php');
+        return (new PDF($html, $config));
     }
 
 
