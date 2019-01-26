@@ -9,7 +9,14 @@
     <authorEmail></authorEmail>
     <authorUrl>https://mpdf.github.io</authorUrl>
     <version>7.1.0</version>
-    <description><![CDATA[Class for generating PDF files on-the-fly without requiring external extensions.]]></description>
+    <description><![CDATA[Library for generating PDF files.]]></description>
+
+    <updateservers>
+        <server type="extension" priority="1" name="Lib Mpdf">
+            https://hika.su/update/free/lib_mpdf.xml
+        </server>
+    </updateservers>
+
     <files>
         <folder>data</folder>
         <folder>src</folder>
