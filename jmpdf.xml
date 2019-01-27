@@ -24,6 +24,5 @@
         <folder>ttfonts</folder>
         <filename>config.php</filename>
         <filename>jmpdf.php</filename>
-        <filename>pdf.php</filename>
     </files>
 </extension>
