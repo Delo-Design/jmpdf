@@ -15,7 +15,7 @@ JLoader::register('JMpdf', JPATH_LIBRARIES . '/mpdf/jmpdf.php');
 $pdf = new JMpdf('Hello world');
 $pdf->stream();
  
-##Параметры конструктора JMpdf
+## Параметры конструктора JMpdf
 1) html - html для записи в pdf
 2) $config - параметры для mpdf, список параметров:
 - mode                
