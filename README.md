@@ -1,4 +1,4 @@
-# jmpdf
+# JMpdf
 Mpdf for Joomla!
 
 ## Mpdf
@@ -8,18 +8,14 @@ Mpdf for Joomla!
 ## JMpdf
 Для удобства написана обертка для mpdf.
 
-Загрузка и вызов:
+Загрузка и пример вызова:
 
 JLoader::register('JMpdf', JPATH_LIBRARIES . '/mpdf/jmpdf.php');
 
-$pdf = JMpdf::getPdf('Hello world');
-
-
-## Методы JMpdf
-- static::getPDF($html = '', $config = [])
-
-## JMpdf::getPDF($html, $config);
-Параметры
+$pdf = new JMpdf('Hello world');
+$pdf->stream();
+ 
+##Параметры конструктора JMpdf
 1) html - html для записи в pdf
 2) $config - параметры для mpdf, список параметров:
 - mode                
@@ -39,7 +35,7 @@ $pdf = JMpdf::getPdf('Hello world');
 - instanceConfigurator
 
 
-Метод возвращает класс PDF с методами:
+## Методы JMpdf
 - setProtection
 - output
 - save
@@ -48,4 +44,4 @@ $pdf = JMpdf::getPdf('Hello world');
      
      
 ## Подключить без обертки
-JLoader::registerNamespace('Mpdf', JPATH_LIBRARIES . '/mpdf/src');
+JLoader::registerNamespace('Mpdf', JPATH_LIBRARIES . DS . 'mpdf');
