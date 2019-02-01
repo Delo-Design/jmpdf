@@ -19,7 +19,7 @@
 
     <files>
         <folder>data</folder>
-        <folder>src</folder>
+        <folder>Mpdf</folder>
         <folder>tmp</folder>
         <folder>ttfonts</folder>
         <filename>config.php</filename>
