@@ -22,20 +22,8 @@ class JMpdf
             $config->set($key, $value);
         }
 
-        $mpdf_config = [
-            'mode'                 =>   $config->get('mode', ''),              // mode - default ''
-            'format'               =>   $config->get('format', ''),            // format - A4, for example, default ''
-            'margin_left'          =>   $config->get('margin_left', ''),       // margin_left
-            'margin_right'         =>   $config->get('margin_right', ''),      // margin right
-            'margin_top'           =>   $config->get('margin_top', ''),        // margin top
-            'margin_bottom'        =>   $config->get('margin_bottom', ''),     // margin bottom
-            'margin_header'        =>   $config->get('margin_header', ''),     // margin header
-            'margin_footer'        =>   $config->get('margin_footer', ''),     // margin footer
-            'tempDir'              =>   $config->get('tempDir', '')            // margin footer
-        ];
-
         $this->config = $config;
-        $this->mpdf = new Mpdf($mpdf_config);
+        $this->mpdf = new Mpdf($config->toArray());
         // If you want to change your document title,
         // please use the <title> tag.
         $this->mpdf->SetTitle('Document');
