@@ -14,9 +14,9 @@ class JMpdf
     public function __construct($html = '', $uconfig = [])
     {
 
-        JLoader::registerNamespace('Mpdf', JPATH_LIBRARIES . DS . 'mpdf');
+        JLoader::registerNamespace('Mpdf', JPATH_LIBRARIES . DIRECTORY_SEPARATOR . 'mpdf');
         $config = new Registry();
-        $config->loadArray(include __DIR__ . '/config.php');
+        $config->loadArray(include __DIR__ . DIRECTORY_SEPARATOR . 'config.php');
 
         foreach ($uconfig as $key => $value) {
             $config->set($key, $value);
