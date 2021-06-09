@@ -8,7 +8,7 @@
     <license>GNU General Public License</license>
     <authorEmail></authorEmail>
     <authorUrl>https://mpdf.github.io</authorUrl>
-    <version>7.1.0</version>
+    <version>8.0.11</version>
     <description><![CDATA[Library for generating PDF files.]]></description>
 
     <updateservers>
@@ -18,10 +18,7 @@
     </updateservers>
 
     <files>
-        <folder>data</folder>
-        <folder>Mpdf</folder>
-        <folder>tmp</folder>
-        <folder>ttfonts</folder>
+        <folder>libraries</folder>
         <filename>config.php</filename>
         <filename>jmpdf.php</filename>
     </files>
