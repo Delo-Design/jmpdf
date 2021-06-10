@@ -117,13 +117,33 @@ class JMpdf
 
 
 	/**
-	 * @param $key
+	 * Получение конфигурации mpdf
 	 *
-	 * @return mixed
+	 * @param   string  $key
+	 * @param   mixed   $default
+	 *
+	 * @return mixed|stdClass
 	 */
 	protected function getConfig($key, $default = '')
 	{
 		return $this->config->get($key, $default);
+	}
+
+
+	/**
+	 * Установка новой конфигурации и пересоздается mpdf
+	 *
+	 * @param   string  $key
+	 * @param   mixed   $value
+	 *
+	 * @return bool
+	 */
+	protected function setConfig($key, $value)
+	{
+		$this->config->set($key, $value);
+		$this->getInstance(); // пересоздаем mpdf по новой конфигурации
+
+		return true;
 	}
 
 
@@ -161,7 +181,7 @@ class JMpdf
 	/**
 	 * Сохранение в указанный файл
 	 *
-	 * @param string $filename - полный путь куда сохранить
+	 * @param   string  $filename  - полный путь куда сохранить
 	 *
 	 * @return mixed
 	 */
@@ -175,7 +195,7 @@ class JMpdf
 	 *
 	 * Проставление заголовков http на скачку pdf
 	 *
-	 * @param   string  $filename - имя файла
+	 * @param   string  $filename  - имя файла
 	 *
 	 * @return mixed
 	 *
@@ -189,7 +209,7 @@ class JMpdf
 	/**
 	 * Проставление заголовков http на вывод в браузер
 	 *
-	 * @param   string  $filename - имя файла
+	 * @param   string  $filename  - имя файла
 	 *
 	 * @return mixed
 	 */
@@ -202,12 +222,12 @@ class JMpdf
 	/**
 	 * Добавление новых шрифтов
 	 *
-	 * @see Смотрите пример в файле /examples/fonts.php
-	 *
-	 * @param array|string $font_path
-	 * @param array $fonts
+	 * @param   array|string  $font_path
+	 * @param   array         $fonts
 	 *
 	 * @return bool
+	 * @see Смотрите пример в файле /examples/fonts.php
+	 *
 	 */
 	public function addFonts($font_path, $fonts)
 	{

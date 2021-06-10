@@ -42,8 +42,8 @@ Mpdf for Joomla!
 
 
 ## Методы JMpdf
-Аргументы расписаны в phpdoc в классе JMpdf.
-
+Аргументы расписаны в phpdoc в классе JMpdf. <br/>
+Базовые методы:
 - setProtection - установить пароль
 - output - возвращает строку 
 - save - сохранить в файл
