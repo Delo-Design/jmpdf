@@ -5,6 +5,9 @@ Mpdf for Joomla!
 - Ссылка на github: https://github.com/mpdf/mpdf
 - Ссылка на документацию: https://mpdf.github.io
 
+## Изменения
+Прочитать изменения вы можете в файле [changelog.md](https://github.com/Delo-Design/jmpdf/blob/master/changelog.md)
+
 ## Примеры запуска
 Вы можете посмотреть в папке examples примеры запуска класса JMpdf.
  
