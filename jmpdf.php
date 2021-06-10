@@ -15,47 +15,82 @@ class JMpdf
 
 	public function __construct($html = '', $uconfig = [])
 	{
+		$uconfig['html'] = $html;
+		$this->getInstance($uconfig);
+	}
 
-		$config = new Registry();
-		$config->loadArray(include __DIR__ . DIRECTORY_SEPARATOR . 'config.php');
+
+	protected function getInstance($uconfig = [])
+	{
+		if (empty($this->config))
+		{
+			$this->config = new Registry();
+			$this->config->loadArray(include __DIR__ . DIRECTORY_SEPARATOR . 'config.php');
+		}
+
+		if(count($this->config->get('fontdata', [])) === 0)
+		{
+			$font_data_default = [
+				"dejavusans" => [
+					'R'          => "DejaVuSans.ttf",
+					'B'          => "DejaVuSans-Bold.ttf",
+					'I'          => "DejaVuSans-Oblique.ttf",
+					'BI'         => "DejaVuSans-BoldOblique.ttf",
+					'useOTL'     => 0xFF,
+					'useKashida' => 75,
+				]
+			];
+			$font_data = $this->config->set('fontdata', $font_data_default);
+			$this->config->set('default_font', 'dejavusans');
+		}
+
+		if(count($this->config->get('fontDir', [])) === 0)
+		{
+			$defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
+			$this->config->set('fontDir', $defaultConfig['fontDir']);
+		}
 
 		foreach ($uconfig as $key => $value)
 		{
-			$config->set($key, $value);
+
+			if ($key === 'fonts')
+			{
+				$font_data = $this->config->get('fontdata');
+				$this->config->set('fontdata', array_merge($font_data, $value));
+				continue;
+			}
+
+			if($key === 'fonts_dir')
+			{
+				$font_dir = $this->config->get('fontDir');
+				$this->config->set('fontDir', array_merge($font_dir, $value));
+				continue;
+			}
+
+			$this->config->set($key, $value);
 		}
 
-		$config->set('fontdata', [
-			"dejavusans" => [
-				'R' => "DejaVuSans.ttf",
-				'B' => "DejaVuSans-Bold.ttf",
-				'I' => "DejaVuSans-Oblique.ttf",
-				'BI' => "DejaVuSans-BoldOblique.ttf",
-				'useOTL' => 0xFF,
-				'useKashida' => 75,
-			]
-		]);
-		$config->set('default_font', 'dejavusans');
 
-		$this->config = $config;
-		$this->mpdf   = new Mpdf($config->toArray());
+		$this->mpdf = new Mpdf($this->config->toArray());
 
 		// If you want to change your document title,
 		// please use the <title> tag.
 		$this->mpdf->SetTitle('Document');
-		$this->mpdf->SetAuthor($config->get('author', ''));
-		$this->mpdf->SetCreator($config->get('creator', ''));
-		$this->mpdf->SetSubject($config->get('subject', ''));
-		$this->mpdf->SetKeywords($config->get('keywords', ''));
-		$this->mpdf->SetDisplayMode($config->get('display_mode', ''));
+		$this->mpdf->SetAuthor($this->config->get('author', ''));
+		$this->mpdf->SetCreator($this->config->get('creator', ''));
+		$this->mpdf->SetSubject($this->config->get('subject', ''));
+		$this->mpdf->SetKeywords($this->config->get('keywords', ''));
+		$this->mpdf->SetDisplayMode($this->config->get('display_mode', ''));
 
-		if (!empty($config->get('instanceConfigurator', '')) && is_callable(($this->config->get('instanceConfigurator'))))
+		if (
+			!empty($this->config->get('instanceConfigurator', '')) &&
+			is_callable(($this->$this->config->get('instanceConfigurator'))))
 		{
 			$this->config->get('instanceConfigurator')($this->mpdf);
 		}
 
-		$this->mpdf->WriteHTML($html);
+		$this->mpdf->WriteHTML($this->config->get('html', ''));
 	}
-
 
 	/*
 	 * Magical method for Mpdf
@@ -113,18 +148,11 @@ class JMpdf
 
 	public function addFonts($font_path, $fonts)
 	{
-		$this->mpdf->AddFontDirectory($font_path);
-
-		foreach ($fonts as $font)
-		{
-			$this->mpdf->AddFont($font['family'], $font['style'] ?? '');
-		}
-	}
-
-
-	public function setFont($family, $style = '', $size = 0, $write = true, $forcewrite = false)
-	{
-		$this->mpdf->SetFont($family, $style, $size, $write, $forcewrite);
+		$config = [
+			'fonts' => $fonts,
+			'fonts_dir' => [$font_path]
+		];
+		$this->getInstance($config);
 	}
 
 }
