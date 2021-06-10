@@ -1,6 +1,4 @@
-<?php
-
-defined('_JEXEC') or die;
+<?php defined('_JEXEC') or die;
 
 use Joomla\Registry\Registry;
 use Mpdf\Mpdf;
@@ -10,6 +8,11 @@ include_once JPATH_LIBRARIES . DIRECTORY_SEPARATOR . '/mpdf/libraries/vendor/aut
 class JMpdf
 {
 
+	/**
+	 * Конфигурация для mpdf
+	 *
+	 * @var Registry
+	 */
 	protected $config;
 
 
@@ -20,6 +23,13 @@ class JMpdf
 	}
 
 
+	/**
+	 * Создание/Пересоздание объекта mpdf с сохранением прежных настроек
+	 *
+	 * @param   array  $uconfig
+	 *
+	 * @throws \Mpdf\MpdfException
+	 */
 	protected function getInstance($uconfig = [])
 	{
 		if (empty($this->config))
@@ -28,7 +38,7 @@ class JMpdf
 			$this->config->loadArray(include __DIR__ . DIRECTORY_SEPARATOR . 'config.php');
 		}
 
-		if(count($this->config->get('fontdata', [])) === 0)
+		if (count($this->config->get('fontdata', [])) === 0)
 		{
 			$font_data_default = [
 				"dejavusans" => [
@@ -40,11 +50,11 @@ class JMpdf
 					'useKashida' => 75,
 				]
 			];
-			$font_data = $this->config->set('fontdata', $font_data_default);
+			$font_data         = $this->config->set('fontdata', $font_data_default);
 			$this->config->set('default_font', 'dejavusans');
 		}
 
-		if(count($this->config->get('fontDir', [])) === 0)
+		if (count($this->config->get('fontDir', [])) === 0)
 		{
 			$defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
 			$this->config->set('fontDir', $defaultConfig['fontDir']);
@@ -60,7 +70,7 @@ class JMpdf
 				continue;
 			}
 
-			if($key === 'fonts_dir')
+			if ($key === 'fonts_dir')
 			{
 				$font_dir = $this->config->get('fontDir');
 				$this->config->set('fontDir', array_merge($font_dir, $value));
@@ -92,8 +102,9 @@ class JMpdf
 		$this->mpdf->WriteHTML($this->config->get('html', ''));
 	}
 
+
 	/*
-	 * Magical method for Mpdf
+	 * Магический метод, который позволяет напрямую обращаться к mpdf
 	 *
 	 */
 	public function __call($name, $arguments)
@@ -105,12 +116,26 @@ class JMpdf
 	}
 
 
-	protected function getConfig($key)
+	/**
+	 * @param $key
+	 *
+	 * @return mixed
+	 */
+	protected function getConfig($key, $default = '')
 	{
-		return $this->config->get($key, '');
+		return $this->config->get($key, $default);
 	}
 
 
+	/**
+	 * Уставливает пароль на pdf
+	 *
+	 * @param           $permisson
+	 * @param   string  $userPassword
+	 * @param   string  $ownerPassword
+	 *
+	 * @return mixed
+	 */
 	public function setProtection($permisson, $userPassword = '', $ownerPassword = '')
 	{
 		if (func_get_args()[2] === null)
@@ -122,37 +147,89 @@ class JMpdf
 	}
 
 
+	/**
+	 * Вовзращает сгенерированный pdf документ в виде строки
+	 *
+	 * @return string
+	 */
 	public function output()
 	{
 		return $this->mpdf->Output('', 'S');
 	}
 
 
+	/**
+	 * Сохранение в указанный файл
+	 *
+	 * @param string $filename - полный путь куда сохранить
+	 *
+	 * @return mixed
+	 */
 	public function save($filename)
 	{
 		return $this->mpdf->Output($filename, 'F');
 	}
 
 
+	/**
+	 *
+	 * Проставление заголовков http на скачку pdf
+	 *
+	 * @param   string  $filename - имя файла
+	 *
+	 * @return mixed
+	 *
+	 */
 	public function download($filename = 'document.pdf')
 	{
 		return $this->mpdf->Output($filename, 'D');
 	}
 
 
+	/**
+	 * Проставление заголовков http на вывод в браузер
+	 *
+	 * @param   string  $filename - имя файла
+	 *
+	 * @return mixed
+	 */
 	public function stream($filename = 'document.pdf')
 	{
 		return $this->mpdf->Output($filename, 'I');
 	}
 
 
+	/**
+	 * Добавление новых шрифтов
+	 *
+	 * @see Смотрите пример в файле /examples/fonts.php
+	 *
+	 * @param array|string $font_path
+	 * @param array $fonts
+	 *
+	 * @return bool
+	 */
 	public function addFonts($font_path, $fonts)
 	{
+
+		if (is_string($font_path))
+		{
+			$font_path = [$font_path];
+		}
+
+		if (!is_array($font_path))
+		{
+			return false;
+		}
+
 		$config = [
-			'fonts' => $fonts,
-			'fonts_dir' => [$font_path]
+			'fonts'     => $fonts,
+			'fonts_dir' => $font_path
 		];
 		$this->getInstance($config);
+
+		return true;
 	}
+
 
 }
