@@ -1,6 +1,11 @@
 <?php
 
-// Пример загрузки своих шрифтов
+/**
+ * Пример загрузки своих шрифтов
+ * Шрифты должны загружаться только TrueType
+ * Полное описание можете получить на официальной документации mpdf: https://mpdf.github.io/fonts-languages/fonts-in-mpdf-7-x.html
+ */
+
 
 $html = '<span style="font-family: alaruss">Мой текст какой-то с шрифтом alaruss</span> ' .
 	'<span style="font-family: other">Мой текст какой-то с шрифтом other</span>';
