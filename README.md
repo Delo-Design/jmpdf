@@ -5,15 +5,8 @@ Mpdf for Joomla!
 - Ссылка на github: https://github.com/mpdf/mpdf
 - Ссылка на документацию: https://mpdf.github.io
 
-## JMpdf
-Для удобства написана обертка для mpdf.
-
-Загрузка и пример вызова:
-
-JLoader::register('JMpdf', JPATH_LIBRARIES . '/mpdf/jmpdf.php');
-
-$pdf = new JMpdf('Hello world');
-$pdf->stream();
+## Примеры запуска
+Вы можете посмотреть в папке examples примеры запуска класса JMpdf.
  
 ## Параметры конструктора JMpdf
 1) html - html для записи в pdf
@@ -49,17 +42,18 @@ $pdf->stream();
 
 
 ## Методы JMpdf
+Аргументы расписаны в phpdoc в классе JMpdf.
+
 - setProtection - установить пароль
 - output - возвращает строку 
 - save - сохранить в файл
 - download - скачать
 - stream - отобразить в браузере
 - addFonts - добавить шрифты
-- setFont - использовать в документе этот шрифт
-
 
 
 ## Доступ ко всему объекту mpdf
-Добавлен магический метод __call.
+Есть магический метод __call в JMpdf.
 Работает следующим образом: когда вы вызываете метод которого не существует в классе JMpdf, то магический метод переадресует вызов метода к объекту mpdf внутри JMpdf и метод вызывается, если он существует у mpdf.<br/><br/>
-API mpdf смотрите на официальной документации: https://mpdf.github.io
+Смотрите на официальной документации: https://mpdf.github.io <br/>
+Список функций: https://mpdf.github.io/reference/mpdf-functions/overview.html
