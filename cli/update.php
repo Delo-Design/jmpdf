@@ -8,6 +8,15 @@ $manifest_path = __DIR__ . '/../jmpdf.xml';
 shell_exec('cd ' . $path_plugin . '; php ' . $config['composer_path'] . ' require mpdf/mpdf');
 
 
+if (!file_exists($path_plugin))
+{
+	if (!mkdir($path_plugin) && !is_dir($path_plugin))
+	{
+		echo "failed to create libraries folder \n";
+		die();
+	}
+}
+
 $manifest          = file_get_contents($manifest_path);
 $composer_lock     = json_decode(file_get_contents($path_plugin . '/composer.lock'), JSON_OBJECT_AS_ARRAY);
 $mpdf_find_version = '';
