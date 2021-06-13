@@ -1,11 +1,23 @@
 <?php
+# аргументы --composer /path/to
+error_reporting(0);
 
 $config        = include __DIR__ . '/config.php';
 $path_plugin   = __DIR__ . '/../libraries';
 $path          = __DIR__ . '/../libraries/vendor/mpdf/mpdf/ttfonts';
 $manifest_path = __DIR__ . '/../jmpdf.xml';
 
-shell_exec('cd ' . $path_plugin . '; php ' . $config['composer_path'] . ' require mpdf/mpdf');
+
+if(isset($argv[2]))
+{
+	$composer_path = $argv[2];
+}
+else
+{
+	$composer_path = $config['composer_path'];
+}
+
+shell_exec('cd ' . $path_plugin . '; php ' . $composer_path . ' require mpdf/mpdf');
 
 
 if (!file_exists($path_plugin))
@@ -35,7 +47,7 @@ $manifest = preg_replace_callback("#\<version\>.*?\<\/version\>#isu", function (
 
 file_put_contents($manifest_path, $manifest);
 
-echo "update end \n";
+echo "update end\n";
 
 include __DIR__ . '/clearFonts.php';
 //include __DIR__ . '/build.php';
