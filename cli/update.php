@@ -1,6 +1,6 @@
 <?php
 # аргументы --composer /path/to
-error_reporting(0);
+//error_reporting(0);
 
 $config        = include __DIR__ . '/config.php';
 $path_plugin   = __DIR__ . '/../libraries';
