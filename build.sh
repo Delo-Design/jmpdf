@@ -37,7 +37,7 @@ php update.php
 cd ..
 
 zip -r "${FOLDER}".zip .
-mv "${FOLDER}".zip ../..
+mv "${FOLDER}".zip ..
 cd ..
 rm -rf "${FOLDER}"
 cd ..
