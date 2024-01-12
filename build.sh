@@ -23,8 +23,6 @@ then
 fi
 
 git clone ${BRANCH} git@github.com:"${REPO}".git
-ls
-cd "${FOLDER}"
 
 rm -f README.md
 rm -f .gitignore
@@ -36,7 +34,7 @@ mkdir libraries
 cd cli
 php update.php
 
-cd ../../
+cd ../
 
 zip -r "${FOLDER}".zip .
 mv "${FOLDER}".zip ../..
