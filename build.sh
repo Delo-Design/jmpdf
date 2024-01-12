@@ -24,6 +24,8 @@ pwd
 
 git clone ${BRANCH} git@github.com:"${REPO}".git
 
+ls -l
+
 rm -f README.md
 rm -f .gitignore
 rm -f examples
