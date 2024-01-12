@@ -12,6 +12,9 @@ mkdir libraries
 cd libraries
 composer require mpdf/mpdf
 cd ..
+cd cli
+php update.php
+cd ..
 
 rm -rf cli
 
