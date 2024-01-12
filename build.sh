@@ -12,6 +12,6 @@ cd cli
 php update.php
 cd ..
 
-rm -f cli
+rm -rf cli
 
 zip -r "${FOLDER}".zip .
