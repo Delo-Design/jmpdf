@@ -46,7 +46,9 @@ $manifest = preg_replace_callback("#\<version\>.*?\<\/version\>#isu", function (
 
 file_put_contents($manifest_path, $manifest);
 
+unlink($path_plugin . '/composer.lock');
+unlink($path_plugin . '/composer.json');
+
 echo "update end\n";
 
 include __DIR__ . '/clearFonts.php';
-//include __DIR__ . '/build.php';

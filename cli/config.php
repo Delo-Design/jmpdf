@@ -1,5 +1,5 @@
 <?php
 
 return [
-	'composer_path' => '/Users/dmitriitsymbal/composer.phar'
+	'composer_path' => '/Users/dmitriitsymbal/composer'
 ];

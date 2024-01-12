@@ -1,0 +1,56 @@
+name: Build package release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install git zip unzip curl jq -y
+
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: imagick, swoole
+
+      - name: Set run permissions
+        run: sudo chmod +x ./build.sh
+
+      - name: Run build script
+        run: |
+          export TERM=xterm
+          ./build.sh Delo-Design/jmpdf master jmpdf
+          ls -l
+
+      - name: Get build info
+        id: build_info
+        run: |
+          BUILD_VERSION=$(unzip -p ./jmpdf.zip jmpdf.xml | grep -oPm1 "(?<=<version>)[^<]+")
+          BUILD_TIMESTAMP=$(date +%s)          
+          echo ::set-output name=TIMESTAMP::$BUILD_TIMESTAMP          
+          if [[ -n $BUILD_VERSION ]]; then
+            echo ::set-output name=VERSION::$BUILD_VERSION
+          else
+            echo "Failed to get package version"
+            exit 1
+          fi
+
+      - name: Draft release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "jmpdf.zip"
+          token: ${{ secrets.REPO_TOKEN }}
+          allowUpdates: false
+          artifactErrorsFailBuild: true
+          tag: "build.${{ steps.build_info.outputs.TIMESTAMP }}"
+          name: "${{ steps.build_info.outputs.VERSION }}-build.${{ steps.build_info.outputs.TIMESTAMP }}"
