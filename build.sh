@@ -6,12 +6,10 @@ rm -rf tmpbuild
 mkdir tmpbuild
 cd tmpbuild
 
-
 REPO=$1
 BRANCH=$2
 FOLDER=$3
 
-pwd
 if [[ "${BRANCH}" == "master" ]]
 then
   BRANCH=""
