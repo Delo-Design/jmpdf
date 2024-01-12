@@ -11,6 +11,7 @@ REPO=$1
 BRANCH=$2
 FOLDER=$3
 
+pwd
 if [[ "${BRANCH}" == "master" ]]
 then
   BRANCH=""
@@ -22,6 +23,7 @@ then
 fi
 
 git clone ${BRANCH} git@github.com:"${REPO}".git
+ls
 cd "${FOLDER}"
 
 rm -f README.md
@@ -34,7 +36,7 @@ mkdir libraries
 cd cli
 php update.php
 
-cd ../../../
+cd ../../
 
 zip -r "${FOLDER}".zip .
 mv "${FOLDER}".zip ../..
