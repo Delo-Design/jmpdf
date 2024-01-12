@@ -20,7 +20,7 @@ then
   BRANCH=""
 fi
 
-echo pwd
+pwd
 
 git clone ${BRANCH} git@github.com:"${REPO}".git
 
