@@ -20,9 +20,9 @@ then
   BRANCH=""
 fi
 
-git clone ${BRANCH} git@github.com:"${REPO}".git
+echo pwd
 
-ls -l
+git clone ${BRANCH} git@github.com:"${REPO}".git
 
 rm -f README.md
 rm -f .gitignore
