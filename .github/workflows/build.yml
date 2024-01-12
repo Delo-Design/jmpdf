@@ -35,6 +35,7 @@ jobs:
       - name: Get build info
         id: build_info
         run: |
+          ls -l
           BUILD_VERSION=$(unzip -p ./jmpdf.zip jmpdf.xml | grep -oPm1 "(?<=<version>)[^<]+")
           BUILD_TIMESTAMP=$(date +%s)          
           echo ::set-output name=TIMESTAMP::$BUILD_TIMESTAMP          
