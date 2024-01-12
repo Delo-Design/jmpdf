@@ -34,7 +34,7 @@ mkdir libraries
 cd cli
 php update.php
 
-cd ../../
+cd ../../../
 
 zip -r "${FOLDER}".zip .
 mv "${FOLDER}".zip ../..
