@@ -8,8 +8,9 @@
     <license>GNU General Public License</license>
     <authorEmail></authorEmail>
     <authorUrl>https://mpdf.github.io</authorUrl>
-    <version>8.0.11</version>
+    <version>8.1.0</version>
     <description><![CDATA[Library for generating PDF files.]]></description>
+    <namespace path="src">Joomla\Libraries\JMpdf</namespace>
 
     <updateservers>
         <server type="extension" priority="1" name="Lib Mpdf">
@@ -19,7 +20,7 @@
 
     <files>
         <folder>libraries</folder>
+        <folder>src</folder>
         <filename>config.php</filename>
-        <filename>jmpdf.php</filename>
     </files>
 </extension>
