@@ -2,31 +2,9 @@
 # аргументы --composer /path/to
 //error_reporting(0);
 
-$config        = include __DIR__ . '/config.php';
 $path_plugin   = __DIR__ . '/../libraries';
 $path          = __DIR__ . '/../libraries/vendor/mpdf/mpdf/ttfonts';
 $manifest_path = __DIR__ . '/../jmpdf.xml';
-
-
-if(isset($argv[2]))
-{
-	$composer_path = $argv[2];
-}
-else
-{
-	$composer_path = $config['composer_path'];
-}
-
-if (!file_exists($path_plugin))
-{
-	if (!mkdir($path_plugin) && !is_dir($path_plugin))
-	{
-		echo "failed to create libraries folder \n";
-		die();
-	}
-}
-
-shell_exec('cd ' . $path_plugin . '; php ' . $composer_path . ' require mpdf/mpdf');
 
 $manifest          = file_get_contents($manifest_path);
 $composer_lock     = json_decode(file_get_contents($path_plugin . '/composer.lock'), JSON_OBJECT_AS_ARRAY);

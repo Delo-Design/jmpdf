@@ -8,8 +8,9 @@ rm -f .idea
 rm -rf .git
 rm -rf .github
 
-cd cli
-php update.php
+mkdir libraries
+cd libraries
+composer require mpdf/mpdf
 cd ..
 
 rm -rf cli
