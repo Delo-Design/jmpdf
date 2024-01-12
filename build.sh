@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# требования: composer, zip, unzip, curl, git, настроенный доступ ssh в гитхабе
+FOLDER=$1
 
 rm -f build.sh
 rm -f .gitignore
