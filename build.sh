@@ -25,20 +25,3 @@ pwd
 git clone ${BRANCH} git@github.com:"${REPO}".git
 
 ls -l
-
-rm -f README.md
-rm -f .gitignore
-rm -f examples
-rm -f .idea
-rm -rf .git
-
-mkdir libraries
-cd cli
-php update.php
-
-cd ..
-
-zip -r "${FOLDER}".zip .
-mv "${FOLDER}".zip ..
-cd ..
-rm -rf tmpbuild
