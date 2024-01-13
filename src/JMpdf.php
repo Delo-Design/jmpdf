@@ -37,7 +37,7 @@ class JMpdf
 		if (empty($this->config))
 		{
 			$this->config = new Registry();
-			$this->config->loadArray(include JPATH_LIBRARIES . DIRECTORY_SEPARATOR . 'jmpdf' . DIRECTORY_SEPARATOR . 'config.php');
+			$this->config->loadArray(include JPATH_LIBRARIES . DIRECTORY_SEPARATOR . 'mpdf' . DIRECTORY_SEPARATOR . 'config.php');
 		}
 
 		if (count($this->config->get('fontdata', [])) === 0)
