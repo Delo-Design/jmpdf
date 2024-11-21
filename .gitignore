@@ -1,0 +1,16 @@
+.project
+.settings
+.DS_Store
+.idea
+.vscode
+tmp
+.php-cs-fixer.cache
+composer.phar
+composer.lock
+libraries/vendor
+!libraries/vendor/.gitkeep
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+Desktop.ini
