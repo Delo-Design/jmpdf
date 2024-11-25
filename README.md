@@ -13,8 +13,8 @@ Mpdf for Joomla!
 ## Сборки
 
 В релизе содержится 2 сборки (2 архива):
-- `pkg_rzs.zip` - облегчённая сборки библиотеки, из которой удалены все дополнительные шрифты, кроме `DejaVuSans`;
-- `pkg_rzs_with_fonts.zip` - полная сборка, которая содержит абсолютно все шрифты из оригинальной библиотеки `mpdf/mpdf`.
+- `lib_jmpdf.zip` - облегчённая сборки библиотеки, из которой удалены все дополнительные шрифты, кроме `DejaVuSans`;
+- `lib_jmpdf_with_fonts.zip` - полная сборка, которая содержит абсолютно все шрифты из оригинальной библиотеки `mpdf/mpdf`.
 
 ## Изменения
 Прочитать изменения вы можете в файле [changelog.md](https://github.com/Delo-Design/jmpdf/blob/master/changelog.md)
@@ -26,14 +26,14 @@ Mpdf for Joomla!
 
 1) html - html для записи в pdf
 2) $config - параметры для mpdf, список параметров:
-   - mode                
-   - format           
-   - margin_left     
-   - margin_right     
-   - margin_top        
-   - margin_bottom     
-   - margin_header      
-   - margin_footer        
+   - mode
+   - format
+   - margin_left
+   - margin_right
+   - margin_top
+   - margin_bottom
+   - margin_header
+   - margin_footer
    - tempDir
    - author
    - creator
@@ -41,7 +41,6 @@ Mpdf for Joomla!
    - keywords
    - display_mode
    - instanceConfigurator
-
 
 ## Самостоятельная сборка из исходных кодов
 
