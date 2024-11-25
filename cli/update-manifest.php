@@ -17,7 +17,7 @@ foreach ($lockfile['packages'] as $package) {
     }
 }
 
-$manifest = preg_replace("#(\<version\>).*?\(\/version\)#isu", '$1' . $find_version . '$2', $manifest);
+$manifest = preg_replace("#(<version>).*?(</version>)#isu", '${1}' . $find_version . '${2}', $manifest);
 
 file_put_contents($manifest_path, $manifest);
 

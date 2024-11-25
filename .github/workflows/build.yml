@@ -26,7 +26,7 @@ jobs:
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
         uses: actions/cache@v4
@@ -42,16 +42,23 @@ jobs:
         id: build_info
         run: |
           BUILD_VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" ./jmpdf.xml)
-          BUILD_TIMESTAMP=$(date +%s)
-          echo ::set-output name=TIMESTAMP::$BUILD_TIMESTAMP
+          echo "TIMESTAMP=$(date +%s)" >> $GITHUB_OUTPUT
           if [[ -n $BUILD_VERSION ]]; then
-            echo ::set-output name=VERSION::$BUILD_VERSION
+            echo "VERSION=$BUILD_VERSION" >> $GITHUB_OUTPUT
           else
             echo "Failed to get package version"
             exit 1
           fi
 
-      - name: Build release archive
+      - name: Build release archive with fonts
+        run: |
+          export TERM=xterm
+          zip -r pkg_rzs_with_fonts.zip libraries src config.php jmpdf.xml
+
+      - name: Removes all unnecessary fonts
+        run: composer clear-fonts
+
+      - name: Build release archive without fonts
         run: |
           export TERM=xterm
           zip -r pkg_rzs.zip libraries src config.php jmpdf.xml
@@ -59,6 +66,8 @@ jobs:
       - name: Draft release
         uses: softprops/action-gh-release@v2
         with:
-          files: pkg_rzs.zip
+          files: |
+            pkg_rzs.zip
+            pkg_rzs_with_fonts.zip
           tag_name: "build.${{ steps.build_info.outputs.TIMESTAMP }}"
           name: "${{ steps.build_info.outputs.VERSION }}-build.${{ steps.build_info.outputs.TIMESTAMP }}"
