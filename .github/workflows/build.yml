@@ -26,7 +26,7 @@ jobs:
 
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
         uses: actions/cache@v4
@@ -42,10 +42,9 @@ jobs:
         id: build_info
         run: |
           BUILD_VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" ./jmpdf.xml)
-          BUILD_TIMESTAMP=$(date +%s)
-          echo ::set-output name=TIMESTAMP::$BUILD_TIMESTAMP
+          echo "TIMESTAMP=$(date +%s)" >> $GITHUB_OUTPUT
           if [[ -n $BUILD_VERSION ]]; then
-            echo ::set-output name=VERSION::$BUILD_VERSION
+            echo "VERSION=$BUILD_VERSION" >> $GITHUB_OUTPUT
           else
             echo "Failed to get package version"
             exit 1
