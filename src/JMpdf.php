@@ -1,16 +1,16 @@
 <?php
+
 namespace Joomla\Libraries\JMpdf;
 
 defined('_JEXEC') or die;
 
+require_once JPATH_LIBRARIES . DIRECTORY_SEPARATOR . '/mpdf/libraries/vendor/autoload.php';
+
 use Joomla\Registry\Registry;
 use Mpdf\Mpdf;
 
-require_once JPATH_LIBRARIES . DIRECTORY_SEPARATOR . '/mpdf/libraries/vendor/autoload.php';
-
 class JMpdf
 {
-
     /**
      * Конфигурация для mpdf
      *
@@ -18,13 +18,11 @@ class JMpdf
      */
     protected $config;
 
-
     public function __construct($html = '', $uconfig = [])
     {
         $uconfig['html'] = $html;
         $this->getInstance($uconfig);
     }
-
 
     /**
      * Создание/Пересоздание объекта mpdf с сохранением прежных настроек
@@ -97,18 +95,15 @@ class JMpdf
         $this->mpdf->WriteHTML($this->config->get('html', ''));
     }
 
-
-    /*
+    /**
      * Магический метод, который позволяет напрямую обращаться к mpdf
-     *
-     */
+     **/
     public function __call($name, $arguments)
     {
         if (method_exists($this->mpdf, $name)) {
             call_user_func_array([$this->mpdf, $name], $arguments);
         }
     }
-
 
     /**
      * Получение конфигурации mpdf
@@ -122,7 +117,6 @@ class JMpdf
     {
         return $this->config->get($key, $default);
     }
-
 
     /**
      * Установка новой конфигурации и пересоздается mpdf
@@ -139,7 +133,6 @@ class JMpdf
 
         return true;
     }
-
 
     /**
      * Уставливает пароль на pdf
@@ -159,7 +152,6 @@ class JMpdf
         return $this->mpdf->SetProtection($permisson, $userPassword, $ownerPassword);
     }
 
-
     /**
      * Вовзращает сгенерированный pdf документ в виде строки
      *
@@ -169,7 +161,6 @@ class JMpdf
     {
         return $this->mpdf->Output('', 'S');
     }
-
 
     /**
      * Сохранение в указанный файл
@@ -182,7 +173,6 @@ class JMpdf
     {
         return $this->mpdf->Output($filename, 'F');
     }
-
 
     /**
      *
@@ -198,7 +188,6 @@ class JMpdf
         return $this->mpdf->Output($filename, 'D');
     }
 
-
     /**
      * Проставление заголовков http на вывод в браузер
      *
@@ -210,7 +199,6 @@ class JMpdf
     {
         return $this->mpdf->Output($filename, 'I');
     }
-
 
     /**
      * Добавление новых шрифтов
@@ -240,6 +228,4 @@ class JMpdf
 
         return true;
     }
-
-
 }
