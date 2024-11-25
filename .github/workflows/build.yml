@@ -10,7 +10,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
@@ -21,37 +21,53 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
-          extensions: imagick, swoole
+          extensions: "mbstring, gd, bcmath, bz2, json"
+          tools: composer
 
-      - name: Set run permissions
-        run: sudo chmod +x ./build.sh
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
-      - name: Run build script
-        run: |
-          export TERM=xterm
-          ./build.sh jmpdf
-          ls -l
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install composer dependencies from source
+        run: composer install --prefer-dist --no-dev --no-progress --no-interaction --optimize-autoloader
 
       - name: Get build info
         id: build_info
         run: |
-          ls -l
-          BUILD_VERSION=$(unzip -p ./jmpdf.zip jmpdf.xml | grep -oPm1 "(?<=<version>)[^<]+")
-          BUILD_TIMESTAMP=$(date +%s)          
-          echo ::set-output name=TIMESTAMP::$BUILD_TIMESTAMP          
+          BUILD_VERSION=$(grep -oPm1 "(?<=<version>)[^<]+" ./jmpdf.xml)
+          echo "TIMESTAMP=$(date +%s)" >> $GITHUB_OUTPUT
           if [[ -n $BUILD_VERSION ]]; then
-            echo ::set-output name=VERSION::$BUILD_VERSION
+            echo "VERSION=$BUILD_VERSION" >> $GITHUB_OUTPUT
           else
             echo "Failed to get package version"
             exit 1
           fi
 
+      - name: Build release archive with fonts
+        run: |
+          export TERM=xterm
+          zip -r pkg_rzs_with_fonts.zip libraries src config.php jmpdf.xml
+
+      - name: Removes all unnecessary fonts
+        run: composer clear-fonts
+
+      - name: Build release archive without fonts
+        run: |
+          export TERM=xterm
+          zip -r pkg_rzs.zip libraries src config.php jmpdf.xml
+
       - name: Draft release
-        uses: ncipollo/release-action@v1
+        uses: softprops/action-gh-release@v2
         with:
-          artifacts: "jmpdf.zip"
-          token: ${{ secrets.REPO_TOKEN }}
-          allowUpdates: false
-          artifactErrorsFailBuild: true
-          tag: "build.${{ steps.build_info.outputs.TIMESTAMP }}"
+          files: |
+            pkg_rzs.zip
+            pkg_rzs_with_fonts.zip
+          tag_name: "build.${{ steps.build_info.outputs.TIMESTAMP }}"
           name: "${{ steps.build_info.outputs.VERSION }}-build.${{ steps.build_info.outputs.TIMESTAMP }}"
