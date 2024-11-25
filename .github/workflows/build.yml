@@ -53,7 +53,7 @@ jobs:
       - name: Build release archive with fonts
         run: |
           export TERM=xterm
-          zip -r pkg_rzs_with_fonts.zip libraries src config.php jmpdf.xml
+          zip -r lib_jmpdf_with_fonts.zip libraries src config.php jmpdf.xml
 
       - name: Removes all unnecessary fonts
         run: composer clear-fonts
@@ -61,13 +61,13 @@ jobs:
       - name: Build release archive without fonts
         run: |
           export TERM=xterm
-          zip -r pkg_rzs.zip libraries src config.php jmpdf.xml
+          zip -r lib_jmpdf.zip libraries src config.php jmpdf.xml
 
       - name: Draft release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            pkg_rzs.zip
-            pkg_rzs_with_fonts.zip
+            lib_jmpdf.zip
+            lib_jmpdf_with_fonts.zip
           tag_name: "build.${{ steps.build_info.outputs.TIMESTAMP }}"
           name: "${{ steps.build_info.outputs.VERSION }}-build.${{ steps.build_info.outputs.TIMESTAMP }}"
