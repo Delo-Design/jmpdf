@@ -34,12 +34,10 @@
 	},
 	"scripts": {
 		"post-install-cmd": [
-			"@udate-manifest",
-			"@clear-fonts"
+			"@udate-manifest"
 		],
 		"post-update-cmd": [
-			"@udate-manifest",
-			"@clear-fonts"
+			"@udate-manifest"
 		],
 		"udate-manifest": "@php ./cli/update-manifest.php",
 		"clear-fonts": "@php ./cli/clear-fonts.php"
