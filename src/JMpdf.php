@@ -14,31 +14,35 @@ class JMpdf
     /**
      * Конфигурация для mpdf
      *
-     * @var Registry
+     * @var null|Registry
      */
-    protected $config;
+    protected ?Registry $config;
 
     /**
      * Экземпляр класса mpdf
      *
      * @var null|\Mpdf\Mpdf
      */
-    protected $mpdf;
+    protected ?Mpdf $mpdf;
 
-    public function __construct($html = '', $uconfig = [])
+    /**
+     * @throws \Mpdf\MpdfException
+     */
+    public function __construct(string $html = '', array $uconfig = [])
     {
         $uconfig['html'] = $html;
         $this->getInstance($uconfig);
     }
 
     /**
-     * Создание/Пересоздание объекта mpdf с сохранением прежных настроек
+     * Создание/Пересоздание объекта mpdf с сохранением прежних настроек
      *
      * @param   array  $uconfig
      *
      * @throws \Mpdf\MpdfException
+     * @return \Mpdf\Mpdf
      */
-    protected function getInstance($uconfig = [])
+    protected function getInstance(array $uconfig = []): Mpdf
     {
         if (empty($this->config)) {
             $this->config = new Registry();
@@ -56,7 +60,8 @@ class JMpdf
                     'useKashida' => 75,
                 ],
             ];
-            $font_data         = $this->config->set('fontdata', $font_data_default);
+
+            $this->config->set('fontdata', $font_data_default);
             $this->config->set('default_font', 'dejavusans');
         }
 
@@ -100,6 +105,8 @@ class JMpdf
         }
 
         $this->mpdf->WriteHTML($this->config->get('html', ''));
+
+        return $this->mpdf;
     }
 
     /**
@@ -118,9 +125,9 @@ class JMpdf
      * @param   string  $key
      * @param   mixed   $default
      *
-     * @return mixed|stdClass
+     * @return mixed|\stdClass
      */
-    protected function getConfig($key, $default = '')
+    protected function getConfig(string $key, $default = '')
     {
         return $this->config->get($key, $default);
     }
@@ -131,9 +138,10 @@ class JMpdf
      * @param   string  $key
      * @param   mixed   $value
      *
+     * @throws \Mpdf\MpdfException
      * @return bool
      */
-    protected function setConfig($key, $value)
+    protected function setConfig(string $key, $value): bool
     {
         $this->config->set($key, $value);
         $this->getInstance(); // пересоздаем mpdf по новой конфигурации
@@ -144,29 +152,28 @@ class JMpdf
     /**
      * Уставливает пароль на pdf
      *
-     * @param           $permisson
-     * @param   string  $userPassword
-     * @param   string  $ownerPassword
-     *
-     * @return mixed
+     * @param   array        $permission
+     * @param   string|null  $userPassword
+     * @param   string|null  $ownerPassword
      */
-    public function setProtection($permisson, $userPassword = '', $ownerPassword = '')
+    public function setProtection(array $permission = [], ?string $userPassword = '', ?string $ownerPassword = '')
     {
         if (\func_get_args()[2] === null) {
             $ownerPassword = bin2hex(openssl_random_pseudo_bytes(8));
         }
 
-        return $this->mpdf->SetProtection($permisson, $userPassword, $ownerPassword);
+        $this->mpdf->SetProtection($permission, $userPassword, $ownerPassword);
     }
 
     /**
-     * Вовзращает сгенерированный pdf документ в виде строки
+     * Возвращает сгенерированный pdf документ в виде строки
      *
+     * @throws \Mpdf\MpdfException
      * @return string
      */
-    public function output()
+    public function output(): string
     {
-        return $this->mpdf->Output('', 'S');
+        return (string) $this->mpdf->Output('', 'S');
     }
 
     /**
@@ -174,25 +181,26 @@ class JMpdf
      *
      * @param   string  $filename  - полный путь куда сохранить
      *
-     * @return mixed
+     * @throws \Mpdf\MpdfException
+     * @return string
      */
-    public function save($filename)
+    public function save(string $filename): string
     {
-        return $this->mpdf->Output($filename, 'F');
+        return (string) $this->mpdf->Output($filename, 'F');
     }
 
     /**
-     *
      * Проставление заголовков http на скачку pdf
      *
      * @param   string  $filename  - имя файла
      *
-     * @return mixed
+     * @throws \Mpdf\MpdfException
+     * @return string
      *
      */
-    public function download($filename = 'document.pdf')
+    public function download(string $filename = 'document.pdf'): string
     {
-        return $this->mpdf->Output($filename, 'D');
+        return (string) $this->mpdf->Output($filename, 'D');
     }
 
     /**
@@ -200,11 +208,12 @@ class JMpdf
      *
      * @param   string  $filename  - имя файла
      *
-     * @return mixed
+     * @throws \Mpdf\MpdfException
+     * @return string
      */
-    public function stream($filename = 'document.pdf')
+    public function stream(string $filename = 'document.pdf'): string
     {
-        return $this->mpdf->Output($filename, 'I');
+        return (string) $this->mpdf->Output($filename, 'I');
     }
 
     /**
@@ -213,11 +222,12 @@ class JMpdf
      * @param   array|string  $font_path
      * @param   array         $fonts
      *
+     * @throws \Mpdf\MpdfException
      * @return bool
      * @see Смотрите пример в файле /examples/fonts.php
      *
      */
-    public function addFonts($font_path, $fonts)
+    public function addFonts($font_path, array $fonts): bool
     {
         if (\is_string($font_path)) {
             $font_path = [$font_path];
