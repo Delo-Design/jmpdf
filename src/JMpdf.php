@@ -2,7 +2,7 @@
 
 namespace Joomla\Libraries\JMpdf;
 
-defined('_JEXEC') or die;
+\defined('_JEXEC') or die;
 
 require_once JPATH_LIBRARIES . DIRECTORY_SEPARATOR . '/mpdf/libraries/vendor/autoload.php';
 
@@ -45,7 +45,7 @@ class JMpdf
             $this->config->loadArray(include JPATH_LIBRARIES . DIRECTORY_SEPARATOR . 'mpdf' . DIRECTORY_SEPARATOR . 'config.php');
         }
 
-        if (count($this->config->get('fontdata', [])) === 0) {
+        if (\count($this->config->get('fontdata', [])) === 0) {
             $font_data_default = [
                 "dejavusans" => [
                     'R'          => "DejaVuSans.ttf",
@@ -54,13 +54,13 @@ class JMpdf
                     'BI'         => "DejaVuSans-BoldOblique.ttf",
                     'useOTL'     => 0xFF,
                     'useKashida' => 75,
-                ]
+                ],
             ];
             $font_data         = $this->config->set('fontdata', $font_data_default);
             $this->config->set('default_font', 'dejavusans');
         }
 
-        if (count($this->config->get('fontDir', [])) === 0) {
+        if (\count($this->config->get('fontDir', [])) === 0) {
             $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
             $this->config->set('fontDir', $defaultConfig['fontDir']);
         }
@@ -95,7 +95,7 @@ class JMpdf
 
         if (
             !empty($this->config->get('instanceConfigurator', ''))
-            && is_callable(($this->$this->config->get('instanceConfigurator')))) {
+            && \is_callable(($this->$this->config->get('instanceConfigurator')))) {
             $this->config->get('instanceConfigurator')($this->mpdf);
         }
 
@@ -108,7 +108,7 @@ class JMpdf
     public function __call($name, $arguments)
     {
         if (method_exists($this->mpdf, $name)) {
-            call_user_func_array([$this->mpdf, $name], $arguments);
+            \call_user_func_array([$this->mpdf, $name], $arguments);
         }
     }
 
@@ -152,7 +152,7 @@ class JMpdf
      */
     public function setProtection($permisson, $userPassword = '', $ownerPassword = '')
     {
-        if (func_get_args()[2] === null) {
+        if (\func_get_args()[2] === null) {
             $ownerPassword = bin2hex(openssl_random_pseudo_bytes(8));
         }
 
@@ -219,17 +219,17 @@ class JMpdf
      */
     public function addFonts($font_path, $fonts)
     {
-        if (is_string($font_path)) {
+        if (\is_string($font_path)) {
             $font_path = [$font_path];
         }
 
-        if (!is_array($font_path)) {
+        if (!\is_array($font_path)) {
             return false;
         }
 
         $config = [
             'fonts'     => $fonts,
-            'fonts_dir' => $font_path
+            'fonts_dir' => $font_path,
         ];
         $this->getInstance($config);
 

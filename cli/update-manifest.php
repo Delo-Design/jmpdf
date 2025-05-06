@@ -1,7 +1,7 @@
 <?php
 
-$vendor_dir = dirname(__FILE__, 2) . '/libraries/vendor/';
-$root_dir   = dirname(__FILE__, 2);
+$vendor_dir = \dirname(__FILE__, 2) . '/libraries/vendor/';
+$root_dir   = \dirname(__FILE__, 2);
 
 $lockfile_path = $root_dir . '/composer.lock';
 $manifest_path = $root_dir . '/jmpdf.xml';

@@ -5,7 +5,7 @@
  * Полное API смотрите на официальной документации: https://mpdf.github.io/reference/mpdf-functions/overview.html
  */
 
-$html = '<b>Мой текст какой-то с шрифтом alaruss</b>';
+$html     = '<b>Мой текст какой-то с шрифтом alaruss</b>';
 $filename = 'example.pdf';
 JLoader::register('JMpdf', JPATH_LIBRARIES . '/mpdf/jmpdf.php');
 $pdf = new JMpdf($html);

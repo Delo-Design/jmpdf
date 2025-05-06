@@ -1,13 +1,13 @@
 <?php
 
-$vendor_dir = dirname(__FILE__, 2) . '/libraries/vendor/';
+$vendor_dir = \dirname(__FILE__, 2) . '/libraries/vendor/';
 $fonts_dir  = $vendor_dir . 'mpdf/mpdf/ttfonts';
 
 $exclude    = 'DejaVuSans';
 
 $files = scandir($fonts_dir);
 foreach ($files as $file) {
-    if (in_array($file, ['.', '..'])) {
+    if (\in_array($file, ['.', '..'])) {
         continue;
     }
 
