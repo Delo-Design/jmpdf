@@ -7,9 +7,9 @@ $finder = PhpCsFixer\Finder::create()
             __DIR__ . '/cli',
             __DIR__ . '/examples',
             __DIR__ . '/src',
-            __DIR__ . '/config.php',
         ]
-    );
+    )
+    ->name(__DIR__ . '/config.php');
 
 $config = new PhpCsFixer\Config();
 $config
@@ -23,7 +23,7 @@ $config
             // Short array syntax
             'array_syntax'                                     => ['syntax' => 'short'],
             // List of values separated by a comma is contained on a single line should not have a trailing comma like [$foo, $bar,] = ...
-            'no_trailing_comma_in_singleline'                  => true,
+            'no_trailing_comma_in_singleline_array'            => true,
             // Arrays on multiline should have a trailing comma
             'trailing_comma_in_multiline'                      => ['elements' => ['arrays']],
             // Align elements in multiline array and variable declarations on new lines below each other
