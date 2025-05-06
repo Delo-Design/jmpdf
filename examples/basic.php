@@ -1,9 +1,10 @@
 <?php
 
-// Базовый запуск mpdf
+// Подключение неймспейса библиотеки
+JLoader::registerNamespace('\\Joomla\\Libraries\\JMpdf', JPATH_LIBRARIES . '/mpdf/src');
 
 $html = '<b>Мой текст какой-то</b>' .
 $filename = 'example.pdf';
-JLoader::register('JMpdf', JPATH_LIBRARIES . '/mpdf/jmpdf.php');
-$pdf = new JMpdf($html);
-$pdf->download($filename);
+
+$pdf = new \Joomla\Libraries\JMpdf\JMpdf($html);
+$pdf->stream(dirname(__FILE__) . '/' . $filename);

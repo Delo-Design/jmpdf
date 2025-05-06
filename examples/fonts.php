@@ -6,15 +6,15 @@
  * Полное описание можете получить на официальной документации mpdf: https://mpdf.github.io/fonts-languages/fonts-in-mpdf-7-x.html
  */
 
+// Подключение неймспейса библиотеки
+JLoader::registerNamespace('\\Joomla\\Libraries\\JMpdf', JPATH_LIBRARIES . '/mpdf/src');
 
 $html = '<span style="font-family: alaruss">Мой текст какой-то с шрифтом alaruss</span> ' .
 	'<span style="font-family: other">Мой текст какой-то с шрифтом other</span>';
-
 $filename = 'example.pdf';
 
-// регистрируем класс JMpdf
-JLoader::register('JMpdf', JPATH_LIBRARIES . '/mpdf/jmpdf.php');
-$pdf = new JMpdf($html);
+// Byb
+$pdf = new \Joomla\Libraries\JMpdf\JMpdf($html);
 
 $pdf->addFonts(
 	JPATH_THEMES . '/mytemplate/fonts', //путь до шрифтов. Допустимо передать массив путей
@@ -36,5 +36,4 @@ $pdf->addFonts(
 	]
 );
 
-
-$pdf->stream($filename);
+$pdf->stream(dirname(__FILE__) . '/' . $filename);
