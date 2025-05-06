@@ -15,7 +15,8 @@
 	"require": {
 		"php": "^7.0 || ^8.0",
 		"ext-json": "*",
-		"mpdf/mpdf": "^8.1"
+		"mpdf/mpdf": "^8.1",
+		"ext-openssl": "*"
 	},
 	"replace": {
 		"psr/log": "*",
