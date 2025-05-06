@@ -18,6 +18,13 @@ class JMpdf
      */
     protected $config;
 
+    /**
+     * Экземпляр класса mpdf
+     *
+     * @var null|\Mpdf\Mpdf
+     */
+    protected $mpdf;
+
     public function __construct($html = '', $uconfig = [])
     {
         $uconfig['html'] = $html;
