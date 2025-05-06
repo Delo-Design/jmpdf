@@ -9,6 +9,25 @@ require_once JPATH_LIBRARIES . DIRECTORY_SEPARATOR . '/mpdf/libraries/vendor/aut
 use Joomla\Registry\Registry;
 use Mpdf\Mpdf;
 
+/**
+ * @method float toFloat(string $num) Преобразует число из строки, учитывая запятые и точки как десятичные разделители.
+ * @method void SetDocTemplate(string $file = '', int $continue = 0, int $continue2pages = 0) Устанавливает шаблон документа для импорта страниц из существующего PDF.
+ * @method void SetJS(string $script) Устанавливает JavaScript-код, который будет внедрён в PDF.
+ * @method string OutputBinaryData() Возвращает данные PDF в виде бинарной строки.
+ * @method string OutputHttpInline() Отправляет PDF в браузер с заголовком Content-Disposition: inline.
+ * @method string OutputHttpDownload(string $fileName) Заставляет браузер начать загрузку файла PDF.
+ * @method mixed OutputFile(string $fileName) Сохраняет PDF-файл на диск.
+ * @method void SetSubstitutions() Устанавливает правила замены шрифтов для символов, отсутствующих в текущем шрифте.
+ * @method string SubstituteChars(string $html) Заменяет специальные символы согласно заданным правилам подстановки.
+ * @method void setHiEntitySubstitutions() Устанавливает замены для HTML-сущностей.
+ * @method void AddFontDirectory(string $directory) Добавляет новую директорию шрифтов для поиска.
+ * @method void AddFont(string $family, string $style = '') Добавляет новый шрифт в список доступных.
+ * @method void RestartDocTemplate() Перезапускает обработку шаблона документа с текущей страницы.
+ * @method array docPageSettings(int $num = 0) Возвращает настройки конкретной страницы (тип нумерации, скрытие, сброс).
+ * @method mixed formatPageNumber(int $ppgno, string $lowertype, bool $reverse = false) Форматирует номер страницы (например, римские цифры).
+ * @method bool isCJK(int $char) Проверяет, является ли символ частью CJK-скрипта (Китайский, Японский, Корейский).
+ * @method bool isPunctuationCJK(int $char) Проверяет, является ли символ знаком препинания в CJK-контексте.
+ */
 class JMpdf
 {
     /**
