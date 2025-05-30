@@ -38,7 +38,7 @@ jobs:
       - name: Add replace block in to composer
         run: |
           export TERM=xterm
-          sudo chmod +x ./build.sh
+          sudo chmod +x ./add-replace.sh
           ./add-replace.sh
 
       - name: Install composer dependencies from source
