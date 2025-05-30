@@ -10,6 +10,12 @@
 			"role": "Developer, maintainer",
 			"email": "cymbal@delo-design.ru",
 			"homepage": "https://delo-design.ru"
+		},
+		{
+			"name": "Artem Vasilev",
+			"role": "Developer",
+			"email": "dev@webmasterskaya.xyz",
+			"homepage": "https://webmasterskaya.xyz"
 		}
 	],
 	"minimum-stability": "stable",
