@@ -175,6 +175,8 @@ class JMpdf
      * @param   array        $permission
      * @param   string|null  $userPassword
      * @param   string|null  $ownerPassword
+     *
+     * @see https://mpdf.github.io/reference/mpdf-functions/setprotection.html
      */
     public function setProtection(array $permission = [], ?string $userPassword = '', ?string $ownerPassword = '')
     {
