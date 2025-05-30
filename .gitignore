@@ -13,3 +13,4 @@ libraries/vendor
 .Trashes
 Thumbs.db
 Desktop.ini
+composer.lock
