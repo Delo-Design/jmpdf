@@ -1,6 +1,7 @@
 {
+	"name": "delo-design/jmpdf",
 	"type": "joomla-library",
-	"description": "MPDF for Joomla",
+	"description": "Integration of MPDF for Joomla",
 	"license": "GPL-2.0-only",
 	"homepage": "https://github.com/Delo-Design/jmpdf",
 	"authors": [
