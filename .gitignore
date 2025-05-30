@@ -6,7 +6,6 @@
 tmp
 .php-cs-fixer.cache
 composer.phar
-composer.lock
 libraries/vendor
 !libraries/vendor/.gitkeep
 ._*
