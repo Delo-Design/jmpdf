@@ -4,7 +4,10 @@ namespace Joomla\Libraries\JMpdf;
 
 \defined('_JEXEC') or die;
 
-require_once dirname(__DIR__) . '/libraries/vendor/autoload.php';
+$autoload = dirname(__DIR__) . '/libraries/vendor/autoload.php';
+if (file_exists($autoload)) {
+    require_once $autoload;
+}
 
 use Joomla\Registry\Registry;
 use Mpdf\Config\ConfigVariables;
