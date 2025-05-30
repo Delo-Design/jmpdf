@@ -4,12 +4,12 @@
 $finder = PhpCsFixer\Finder::create()
     ->in(
         [
-            __DIR__ . '/cli',
-            __DIR__ . '/examples',
-            __DIR__ . '/src',
+            dirname(__DIR__) . '/cli',
+            dirname(__DIR__) . '/examples',
+            dirname(__DIR__) . '/src',
         ]
     )
-    ->name(__DIR__ . '/config.php');
+    ->name(dirname(__DIR__) . '/config.php');
 
 $config = new PhpCsFixer\Config();
 $config

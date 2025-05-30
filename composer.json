@@ -60,16 +60,7 @@
 		"post-update-cmd": [
 			"@udate-manifest"
 		],
-		"cs": [
-			"php-cs-fixer fix --ansi --dry-run --diff"
-		],
-		"cs-fix": [
-			"php-cs-fixer fix --ansi"
-		],
 		"udate-manifest": "@php ./cli/update-manifest.php",
 		"clear-fonts": "@php ./cli/clear-fonts.php"
-	},
-	"require-dev": {
-		"friendsofphp/php-cs-fixer": "^3.4"
 	}
 }
