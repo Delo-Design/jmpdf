@@ -6,3 +6,5 @@ dev export-ignore
 examples export-ignore
 .github export-ignore
 .gitignore export-ignore
+.idea export-ignore
+libraries  export-ignore
