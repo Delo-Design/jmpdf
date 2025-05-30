@@ -2,9 +2,10 @@ jmpdf.xml export-ignore
 .gitattributes export-ignore
 changelog.md export-ignore
 cli export-ignore
-dev export-ignore
 examples export-ignore
 .github export-ignore
 .gitignore export-ignore
 .idea export-ignore
 libraries  export-ignore
+.php-cs-fixer.dist.php export-ignore
+composer.lock export-ignore
