@@ -1,55 +1,58 @@
 {
-	"type": "joomla-library",
-	"description": "MPDF for Joomla",
-	"license": "GPL-2.0-only",
-	"homepage": "https://github.com/Delo-Design/jmpdf",
-	"authors": [
-		{
-			"name": "Dmitrii Cymbal",
-			"role": "Developer, maintainer",
-			"email": "cymbal@delo-design.ru",
-			"homepage": "https://delo-design.ru"
-		}
-	],
-	"minimum-stability": "stable",
-	"require": {
-		"php": "^7.4 || ^8.0",
-		"ext-json": "*",
-		"ext-openssl": "*",
-		"mpdf/mpdf": "^8.2"
-	},
-	"replace": {
-		"psr/log": "*",
-		"psr/http-message": "*"
-	},
-	"config": {
-		"optimize-autoloader": true,
-		"platform": {
-			"php": "7.4"
-		},
-		"vendor-dir": "libraries/vendor",
-		"github-protocols": [
-			"https"
-		],
-		"prepend-autoloader": false
-	},
-	"scripts": {
-		"post-install-cmd": [
-			"@udate-manifest"
-		],
-		"post-update-cmd": [
-			"@udate-manifest"
-		],
-		"cs": [
-			"php-cs-fixer fix --ansi --dry-run --diff"
-		],
-		"cs-fix": [
-			"php-cs-fixer fix --ansi"
-		],
-		"udate-manifest": "@php ./cli/update-manifest.php",
-		"clear-fonts": "@php ./cli/clear-fonts.php"
-	},
-	"require-dev": {
-		"friendsofphp/php-cs-fixer": "^3.4"
-	}
+  "name": "delo-design/jmpdf",
+  "type": "joomla-library",
+  "description": "Integration of MPDF for Joomla",
+  "license": "GPL-2.0-only",
+  "homepage": "https://github.com/Delo-Design/jmpdf",
+  "authors": [
+    {
+      "name": "Dmitrii Cymbal",
+      "role": "Developer, maintainer",
+      "email": "cymbal@delo-design.ru",
+      "homepage": "https://delo-design.ru"
+    },
+    {
+      "name": "Artem Vasilev",
+      "role": "Developer",
+      "email": "dev@webmasterskaya.xyz",
+      "homepage": "https://webmasterskaya.xyz"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=8.1",
+    "ext-json": "*",
+    "ext-openssl": "*",
+    "mpdf/mpdf": "^8.2"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.4"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "8.1"
+    },
+    "vendor-dir": "libraries/vendor",
+    "github-protocols": [
+      "https"
+    ],
+    "prepend-autoloader": false
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "@udate-manifest"
+    ],
+    "post-update-cmd": [
+      "@udate-manifest"
+    ],
+    "cs": [
+      "php-cs-fixer fix --ansi --dry-run --diff"
+    ],
+    "cs-fix": [
+      "php-cs-fixer fix --ansi"
+    ],
+    "udate-manifest": "@php ./cli/update-manifest.php",
+    "clear-fonts": "@php ./cli/clear-fonts.php"
+  }
 }

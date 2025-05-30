@@ -7,6 +7,7 @@ namespace Joomla\Libraries\JMpdf;
 require_once JPATH_LIBRARIES . DIRECTORY_SEPARATOR . '/mpdf/libraries/vendor/autoload.php';
 
 use Joomla\Registry\Registry;
+use Mpdf\Config\ConfigVariables;
 use Mpdf\Mpdf;
 
 /**
@@ -85,7 +86,7 @@ class JMpdf
         }
 
         if (\count($this->config->get('fontDir', [])) === 0) {
-            $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
+            $defaultConfig = (new ConfigVariables())->getDefaults();
             $this->config->set('fontDir', $defaultConfig['fontDir']);
         }
 
@@ -169,11 +170,13 @@ class JMpdf
     }
 
     /**
-     * Уставливает пароль на pdf
+     * Устанавливает пароль на pdf
      *
      * @param   array        $permission
      * @param   string|null  $userPassword
      * @param   string|null  $ownerPassword
+     *
+     * @see https://mpdf.github.io/reference/mpdf-functions/setprotection.html
      */
     public function setProtection(array $permission = [], ?string $userPassword = '', ?string $ownerPassword = '')
     {
