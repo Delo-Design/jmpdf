@@ -6,9 +6,9 @@
     <creationDate>2010</creationDate>
     <copyright>https://mpdf.github.io/copyright.html</copyright>
     <license>GNU General Public License</license>
-    <authorEmail></authorEmail>
+    <authorEmail/>
     <authorUrl>https://mpdf.github.io</authorUrl>
-    <version>8.2.5</version>
+    <version>8.3.1</version>
     <description><![CDATA[Library for generating PDF files.]]></description>
     <namespace path="src">Joomla\Libraries\JMpdf</namespace>
 
